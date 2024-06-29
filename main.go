@@ -42,5 +42,6 @@ func main() {
 	router.GET("/carts", controllers.UserAuthorize, controllers.CartListHandler)
 
 	// Start the server on port 3000
-	router.Run(":3000")
+	port := ":" + config.ConfigENV.PORT
+	router.Run(port)
 }

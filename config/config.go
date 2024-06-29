@@ -12,6 +12,7 @@ type ConfigStruct struct {
 	DBUrl         string
 	JWTKey        string
 	RedisPassword string
+	PORT          string
 }
 
 var ConfigENV *ConfigStruct
@@ -28,6 +29,7 @@ func LoadConfig() {
 		DBUrl:         os.Getenv("DATABASE_URL"),
 		JWTKey:        os.Getenv("JWT_KEY"),
 		RedisPassword: os.Getenv("REDIS_PASSWORD"),
+		PORT:          os.Getenv("PORT"),
 	}
 
 }

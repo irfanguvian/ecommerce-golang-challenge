@@ -112,6 +112,12 @@ func LoginUser(RDB *redis.Client, DB *gorm.DB, UserInput LoginUserInput) (string
 		return "", errors.New("failed to marshal user")
 	}
 
+	accessTokenExist, _ := repository.GetUserAccessByUserID(DB, user.ID)
+
+	if accessTokenExist.UserID != 0 {
+		repository.DeleteAccessToken(DB, accessTokenExist)
+	}
+
 	_, err = repository.CreateAccessToken(DB, accessToken)
 	if err != nil {
 		return "", err

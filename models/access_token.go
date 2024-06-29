@@ -1,7 +1,7 @@
 package models
 
 type AccessToken struct {
-	UserID    uint
+	UserID    uint `gorm:"primaryKey"`
 	AccessID  string
 	ExpiredAt int64
 }

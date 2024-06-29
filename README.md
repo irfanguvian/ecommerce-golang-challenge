@@ -75,6 +75,10 @@ The server will start on http://localhost:3000.
 - [Gorm](https://gorm.io/) - The fantastic ORM library for Golang
 - [PostgreSQL](https://www.postgresql.org/) - The World's Most Advanced Open Source Relational Database
 
+## Documentation
+- [ERD](https://drive.google.com/file/d/19_yXppjE3vgq89DvfYmIhJUjA--4cFwN/view?usp=sharing) - ERD for this project
+- [Postman](https://drive.google.com/file/d/1kd8iFn6URikHm4-h15_i00mRbWBKJujz/view?usp=sharing) - Postman collection for this project
+
 ## Authors
 
 - **Irfan Muhammad Guvian** - *Initial work* - [irfanguvian](https://github.com/irfanguvian)
