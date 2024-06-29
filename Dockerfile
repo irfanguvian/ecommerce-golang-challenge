@@ -1,26 +1,20 @@
-FROM golang:1.22 as builder
+FROM golang:1.22-alpine3.19 AS builder
 
+COPY ${PWD} /app
 WORKDIR /app
 
-RUN apt-get update && \
-    apt-get install -y git && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+# Toggle CGO based on your app requirement. CGO_ENABLED=1 for enabling CGO
+RUN CGO_ENABLED=0 go build -ldflags '-s -w -extldflags "-static"' -o /app/appbin *.go
 
-RUN git clone https://github.com/irfanguvian/ecommerce-golang-challenge .
+FROM alpine:3.19
+LABEL MAINTAINER Author <guvian14@gmail.com>
 
-RUN go mod tidy
+# Add new user 'appuser'
+RUN adduser -D appuser
+USER appuser
 
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
+COPY --from=builder /app /home/appuser/app
 
-FROM alpine:latest  
+WORKDIR /home/appuser/app
 
-RUN apk --no-cache add ca-certificates
-
-WORKDIR /root/
-
-COPY --from=builder /app/ecommerce-golang-challenge .
-
-EXPOSE 3000
-
-CMD ["./main"]
+CMD ["./appbin"]
